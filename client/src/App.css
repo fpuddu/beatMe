@@ -1,0 +1,418 @@
+/* ===== Global Styles ===== */
+:root {
+  --bg: #0a0a1a;
+  --surface: #141428;
+  --surface-hover: #1e1e3a;
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --accent: #06b6d4;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--text-muted);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.15s;
+}
+.btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+.btn-active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.btn-play {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+/* ===== Home Page ===== */
+.home-page {
+  text-align: center;
+  padding-top: 4rem;
+}
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+.tagline {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.join-form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.join-form input {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--text-muted);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  width: 250px;
+}
+.join-form button {
+  padding: 0.7rem 2rem;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.error {
+  color: var(--danger);
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.game-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.mode-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-hover);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: left;
+}
+.mode-card h3 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.mode-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ===== Dashboard ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.dashboard-page section {
+  margin-bottom: 2rem;
+}
+.dashboard-page h2 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+.empty-state {
+  color: var(--text-muted);
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.challenge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.challenge-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--text-muted);
+}
+.challenge-card.status-pending {
+  border-left-color: var(--warning);
+}
+.challenge-card.status-completed {
+  border-left-color: var(--success);
+}
+.challenge-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.challenge-info .type {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+.challenge-info .hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+.score {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ===== Create Challenge ===== */
+.create-page h1 {
+  margin-bottom: 1.5rem;
+}
+.create-form {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+}
+.form-row {
+  margin-bottom: 1rem;
+}
+.form-row label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.form-row input,
+.form-row select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--surface-hover);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.instrument-selector {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ===== Beat Pad ===== */
+.beat-pad {
+  margin: 1rem 0;
+}
+.beat-pad h3 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.pad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  max-width: 400px;
+}
+.pad-button {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s;
+  color: white;
+}
+.pad-button:active:not(:disabled) {
+  transform: scale(0.92);
+}
+.pad-button:disabled {
+  opacity: 0.3;
+}
+.pad-synth {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+.pad-synth:hover:not(:disabled) {
+  background: linear-gradient(135deg, #6d28d9, #9333ea);
+}
+.pad-drums {
+  background: linear-gradient(135deg, #dc2626, #f97316);
+}
+.pad-drums:hover:not(:disabled) {
+  background: linear-gradient(135deg, #b91c1c, #ea580c);
+}
+.pad-hihat {
+  background: linear-gradient(135deg, #0891b2, #06b6d4);
+}
+.pad-hihat:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0e7490, #22d3ee);
+}
+
+/* ===== Recording Area ===== */
+.recording-area {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+}
+.recording-area h2 {
+  margin-bottom: 0.5rem;
+}
+.recording-area > p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.recording-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* ===== Sequence Visualizer ===== */
+.sequence-viz {
+  margin: 1rem 0;
+}
+.sequence-viz h4 {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.sequence-viz.empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+.sequence-timeline {
+  position: relative;
+  height: 50px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.note-block {
+  position: absolute;
+  top: 4px;
+  height: calc(100% - 8px);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  min-width: 24px;
+}
+.note-block.synth {
+  background: rgba(124, 58, 237, 0.7);
+}
+.note-block.drums {
+  background: rgba(220, 38, 38, 0.7);
+}
+.note-block.hihat {
+  background: rgba(8, 145, 178, 0.7);
+}
+.note-block.highlight {
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ===== Play Challenge ===== */
+.play-page h1 {
+  margin-bottom: 0.5rem;
+}
+.challenge-type {
+  color: var(--accent);
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+.challenge-hint {
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.listen-section,
+.answer-section,
+.result-section {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+.listen-section h2,
+.answer-section h2,
+.result-section h2 {
+  margin-bottom: 1rem;
+}
+
+/* ===== Score Display ===== */
+.score-display {
+  text-align: center;
+  padding: 2rem;
+}
+.score-number {
+  font-size: 5rem;
+  font-weight: 800;
+}
+.score-label {
+  font-size: 2rem;
+  color: var(--text-muted);
+}
+.score-display.great .score-number {
+  color: var(--success);
+}
+.score-display.ok .score-number {
+  color: var(--warning);
+}
+.score-display.low .score-number {
+  color: var(--danger);
+}
+.score-message {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
