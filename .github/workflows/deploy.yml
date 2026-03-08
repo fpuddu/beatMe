@@ -6,9 +6,9 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REGION: europe-west1
+  REGION: europe-west12
   SERVICE: beatme
-  REGISTRY: europe-west1-docker.pkg.dev
+  REGISTRY: europe-west12-docker.pkg.dev
 
 jobs:
   deploy:
