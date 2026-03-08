@@ -1,28 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Player } from './player.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Player, PlayerDocument } from './player.entity';
 
 @Injectable()
 export class PlayerService {
   constructor(
-    @InjectRepository(Player) private readonly repo: Repository<Player>,
+    @InjectModel(Player.name) private readonly model: Model<PlayerDocument>,
   ) {}
 
-  async findOrCreate(username: string): Promise<Player> {
-    let player = await this.repo.findOne({ where: { username } });
+  async findOrCreate(username: string): Promise<PlayerDocument> {
+    let player = await this.model.findOne({ username });
     if (!player) {
-      player = this.repo.create({ username });
-      player = await this.repo.save(player);
+      player = await this.model.create({ username });
     }
     return player;
   }
 
-  findById(id: string): Promise<Player | null> {
-    return this.repo.findOne({ where: { id } });
+  findById(id: string): Promise<PlayerDocument | null> {
+    return this.model.findById(id).exec();
   }
 
-  findAll(): Promise<Player[]> {
-    return this.repo.find();
+  findAll(): Promise<PlayerDocument[]> {
+    return this.model.find().exec();
   }
 }

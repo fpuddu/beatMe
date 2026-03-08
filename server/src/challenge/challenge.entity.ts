@@ -1,10 +1,5 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { Player } from '../player/player.entity';
 
 export enum ChallengeType {
@@ -20,10 +15,6 @@ export enum ChallengeStatus {
   EXPIRED = 'expired',
 }
 
-/**
- * A beat/note sequence stored as JSON.
- * Each step has: { note: string, time: number, duration: number, instrument: string }
- */
 export interface NoteEvent {
   note: string;
   time: number;
@@ -31,39 +22,47 @@ export interface NoteEvent {
   instrument: string;
 }
 
-@Entity()
+export type ChallengeDocument = HydratedDocument<Challenge>;
+
+@Schema({ timestamps: true })
 export class Challenge {
-  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', default: ChallengeType.GUESS_SONG })
+  @Prop({ type: String, enum: ChallengeType, default: ChallengeType.GUESS_SONG })
   type: ChallengeType;
 
-  @Column({ type: 'varchar', default: ChallengeStatus.PENDING })
+  @Prop({ type: String, enum: ChallengeStatus, default: ChallengeStatus.PENDING })
   status: ChallengeStatus;
 
-  /** The full sequence the sender recorded */
-  @Column({ type: 'simple-json' })
+  @Prop({ type: [Object], required: true })
   fullSequence: NoteEvent[];
 
-  /** The partial sequence shown to the receiver (with gaps) */
-  @Column({ type: 'simple-json', nullable: true })
+  @Prop({ type: [Object], default: null })
   partialSequence: NoteEvent[] | null;
 
-  /** Optional hint, e.g. song title or genre */
-  @Column({ nullable: true })
+  @Prop()
   hint: string;
 
-  /** Score the receiver achieved (0-100) */
-  @Column({ type: 'int', nullable: true })
+  @Prop({ type: Number, default: null })
   score: number | null;
 
-  @ManyToOne(() => Player, (p) => p.sentChallenges, { eager: true })
+  @Prop({ type: Types.ObjectId, ref: 'Player', required: true })
   sender: Player;
 
-  @ManyToOne(() => Player, (p) => p.receivedChallenges, { eager: true })
+  @Prop({ type: Types.ObjectId, ref: 'Player', required: true })
   receiver: Player;
 
-  @CreateDateColumn()
   createdAt: Date;
 }
+
+export const ChallengeSchema = SchemaFactory.createForClass(Challenge);
+
+ChallengeSchema.set('toJSON', {
+  virtuals: true,
+  transform: (_doc: any, ret: any) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  },
+});
