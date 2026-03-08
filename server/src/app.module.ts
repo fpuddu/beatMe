@@ -16,6 +16,7 @@ import { GameModule } from './game/game.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       exclude: ['/api/(.*)'],
+      renderPath: '/(.*)',
     }),
     PlayerModule,
     ChallengeModule,
