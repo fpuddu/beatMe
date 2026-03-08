@@ -12,6 +12,10 @@ import { GameModule } from './game/game.module';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
       process.env.MONGODB_URI || 'mongodb://localhost:27017/beatme',
+      {
+        serverSelectionTimeoutMS: 5000,
+        connectTimeoutMS: 10000,
+      },
     ),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
